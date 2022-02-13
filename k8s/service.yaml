@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: rtmp-service
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: addonrizky.com
+    external-dns.alpha.kubernetes.io/hostname: rtmp.addonrizky.com
     external-dns.alpha.kubernetes.io/ttl: "120" #optional
 spec:
   type: LoadBalancer
