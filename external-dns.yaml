@@ -1,10 +1,10 @@
-#asekkk
+#asekkk 79f2a7ac29304a86a29b0b125cee949333c83
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: external-dns
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: external-dns
@@ -17,9 +17,9 @@ rules:
   verbs: ["get","watch","list"]
 - apiGroups: [""]
   resources: ["nodes"]
-  verbs: ["get", "watch", "list"]
+  verbs: ["list", "watch"]
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: external-dns-viewer
@@ -50,12 +50,13 @@ spec:
       serviceAccountName: external-dns
       containers:
       - name: external-dns
-        image: k8s.gcr.io/external-dns/external-dns:v0.7.3
+        image: k8s.gcr.io/external-dns/external-dns:v0.7.6
         args:
-        - --source=service
-        - --source=ingress
-        - --domain-filter=rizkyaddon.com
-        - --provider=google
-        - --policy=upsert-only 
-        - --registry=txt
-        - --txt-owner-id=gcloud-external-dns
+        - --source=service # ingress is also possible
+        - --domain-filter=addonrizky.com
+        - --provider=cloudflare
+        env:
+        - name: CF_API_KEY
+          value: "79f2a7ac29304a86a29b0b125cee949333c83"
+        - name: CF_API_EMAIL
+          value: "adhon.rizky@gmail.com"
