@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rtmp-deployment
+  labels:
+    app: rtmp-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rtmp-server
+  template:
+    metadata:
+      labels:
+        app: rtmp-server
+    spec:
+      containers:
+      - name: rtmp-server
+        image: gcr.io/plated-shelter-329723/rtmp-server:@BUILD_ID@
+        ports:
+        - containerPort: 1935
+          name: rtmp

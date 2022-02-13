@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rtmp-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: rtmp-server
+  ports:
+  - protocol: TCP
+    port: 1935
+    targetPort: 1935
